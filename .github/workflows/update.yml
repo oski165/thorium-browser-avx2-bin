@@ -29,14 +29,21 @@ jobs:
       - name: Clone repository
         run: |
           git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+
           cd repo
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create build user
+        run: |
+          useradd -m builder
+          chown -R builder:builder "$GITHUB_WORKSPACE/repo"
 
       - name: Update package
         run: |
           cd repo
-          ./update.sh
+          runuser -u builder -- ./update.sh
 
       - name: Commit and push
         run: |
@@ -48,5 +55,8 @@ jobs:
           fi
 
           git add PKGBUILD .SRCINFO
-          git commit -m "Update Thorium to $(sed -n 's/^pkgver=//p' PKGBUILD)"
+
+          git commit \
+            -m "Update Thorium to $(sed -n 's/^pkgver=//p' PKGBUILD)"
+
           git push
