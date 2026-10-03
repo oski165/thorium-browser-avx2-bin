@@ -40,6 +40,10 @@ jobs:
           useradd -m builder
           chown -R builder:builder "$GITHUB_WORKSPACE/repo"
 
+      - name: Mark repository as safe
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE/repo"
+
       - name: Update package
         run: |
           cd repo
