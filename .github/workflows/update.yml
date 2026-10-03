@@ -13,28 +13,40 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux:latest
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Install dependencies
         run: |
-          pacman -Sy --noconfirm base-devel git jq curl
+          pacman -Sy --noconfirm \
+            base-devel \
+            curl \
+            git \
+            jq \
+            pacman-contrib
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Clone repository
+        run: |
+          git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+          cd repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Update package
         run: |
+          cd repo
           ./update.sh
 
-      - name: Commit changes
+      - name: Commit and push
         run: |
+          cd repo
+
           if git diff --quiet; then
             echo "No update available."
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add PKGBUILD .SRCINFO
-          git commit -m "Update Thorium to $(grep '^pkgver=' PKGBUILD | cut -d= -f2)"
+          git commit -m "Update Thorium to $(sed -n 's/^pkgver=//p' PKGBUILD)"
           git push
