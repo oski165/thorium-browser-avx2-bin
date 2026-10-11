@@ -1,5 +1,5 @@
 pkgname=thorium-browser-avx2-bin
-pkgver=154.0.8037.45
+pkgver=156.0.8078.28
 pkgrel=1
 pkgdesc='Thorium Browser optimized for AVX2'
 arch=('x86_64')
@@ -42,7 +42,7 @@ source=(
     "https://github.com/gz83/thorium/releases/download/M${pkgver}/thorium-browser_${pkgver}_AVX2.deb"
 )
 
-sha256sums=('23a2d6ddffbd76ed95ed80ed24a1338084180b7d36d11eac92144c7519a3f08b')
+sha256sums=('15496ebae54d15a946e1cad9ecc174f50008cc355e35be58ff339ec23bf00846')
 
 package() {
     bsdtar -xf "$srcdir/thorium-browser_${pkgver}_AVX2.deb" \
