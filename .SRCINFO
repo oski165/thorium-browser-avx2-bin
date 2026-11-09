@@ -1,6 +1,6 @@
 pkgbase = thorium-browser-avx2-bin
 	pkgdesc = Thorium Browser optimized for AVX2
-	pkgver = 156.0.8078.28
+	pkgver = 156.0.8078.80
 	pkgrel = 1
 	url = https://thorium.rocks/
 	arch = x86_64
@@ -33,7 +33,7 @@ pkgbase = thorium-browser-avx2-bin
 	depends = xdg-utils
 	provides = thorium-browser
 	conflicts = thorium-browser
-	source = https://github.com/gz83/thorium/releases/download/M156.0.8078.28/thorium-browser_156.0.8078.28_AVX2.deb
-	sha256sums = 15496ebae54d15a946e1cad9ecc174f50008cc355e35be58ff339ec23bf00846
+	source = https://github.com/gz83/thorium/releases/download/M156.0.8078.80/thorium-browser_156.0.8078.80_AVX2.deb
+	sha256sums = abe1217382d145320331af8331c6c75eba78ff772e3577a5599de4d88902a75b
 
 pkgname = thorium-browser-avx2-bin
