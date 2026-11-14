@@ -4,7 +4,10 @@ set -euo pipefail
 REPO="gz83/thorium"
 
 latest_version="$(
-    curl -fsSL "https://api.github.com/repos/${REPO}/releases?per_page=100" |
+curl -fsSL \
+    -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+    -H "Accept: application/vnd.github+json" \
+    "https://api.github.com/repos/${REPO}/releases?per_page=100" |
         jq -r '
             .[]
             | .assets[]
